@@ -19,5 +19,7 @@ public class ClienteController {
     @PostMapping
     @Transactional
     public void cadastrar(@RequestBody ClienteDTO dadosCliente) {
+        clienteService.validarRequisicao(dadosCliente);
+        clienteService.cadastrarCliente(dadosCliente);
     }
 }
