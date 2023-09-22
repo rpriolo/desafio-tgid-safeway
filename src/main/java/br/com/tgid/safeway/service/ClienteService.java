@@ -2,6 +2,7 @@ package br.com.tgid.safeway.service;
 
 import br.com.tgid.safeway.domain.cliente.Cliente;
 import br.com.tgid.safeway.domain.cliente.ClienteDTO;
+import br.com.tgid.safeway.domain.transacao.TransacaoDTO;
 import br.com.tgid.safeway.exception.CpfInvalidoException;
 import br.com.tgid.safeway.exception.DadoNaoInformadoClienteException;
 import br.com.tgid.safeway.repository.ClienteRepository;
@@ -13,6 +14,8 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private TransacaoService transacaoService;
 
     public void cadastrarCliente(ClienteDTO dadosCliente) {
         Cliente cliente = new Cliente(dadosCliente);
@@ -27,4 +30,13 @@ public class ClienteService {
             throw new CpfInvalidoException("O CPF deve ter 11 dígitos");
         }
     }
+
+    public void depositar(TransacaoDTO dadosTransacao) {
+        transacaoService.efetivarDeposito(dadosTransacao);
+    }
+
+    public void sacar(TransacaoDTO dadosTransacao) {
+        transacaoService.efetivarSaque(dadosTransacao);
+    }
+
 }
