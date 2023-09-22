@@ -31,4 +31,12 @@ public class Transacao {
     private BigDecimal valor;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataHora;
+
+    public Transacao(Cliente cliente, Empresa empresa, TransacaoDTO dadosTransacao) {
+        this.tipo = dadosTransacao.tipo();
+        this.cliente = cliente;
+        this.empresa = empresa;
+        this.valor = dadosTransacao.valor();
+        this.dataHora = LocalDateTime.now();
+    }
 }

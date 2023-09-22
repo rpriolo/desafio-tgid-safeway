@@ -20,5 +20,11 @@ public class Empresa {
     private Long id;
     private String cnpj;
     private BigDecimal saldo;
-    private BigDecimal taxaDeAdministracao;
+    private BigDecimal taxaAdministracao;
+
+    public Empresa(EmpresaDTO dadosEmpresa) {
+        this.cnpj = dadosEmpresa.cnpj();
+        this.saldo = dadosEmpresa.saldo();
+        this.taxaAdministracao = dadosEmpresa.taxaAdministracao();
+    }
 }

@@ -17,4 +17,8 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cpf;
+
+    public Cliente(ClienteDTO dadosCliente) {
+        this.cpf = dadosCliente.cpf();
+    }
 }
