@@ -1,0 +1,6 @@
+CREATE TABLE clientes (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+
+    PRIMARY KEY(id)
+);

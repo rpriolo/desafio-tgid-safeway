@@ -1,0 +1,1 @@
+ALTER TABLE transacoes ADD valor DECIMAL(8,2) NOT NULL;
