@@ -1,0 +1,1 @@
+ALTER TABLE transacoes ADD tipo ENUM('DEPOSITO', 'SAQUE') NOT NULL;
