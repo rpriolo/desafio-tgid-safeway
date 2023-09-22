@@ -20,6 +20,7 @@ public class TransacaoController {
     @PostMapping
     @Transactional
     public void realizarTransacao(@RequestBody TransacaoDTO dadosTransacao) {
+        transacaoService.validarTipoTransacao(dadosTransacao);
     }
 
 }
