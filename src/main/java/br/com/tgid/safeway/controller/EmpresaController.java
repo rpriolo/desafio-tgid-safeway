@@ -19,6 +19,8 @@ public class EmpresaController {
     @PostMapping
     @Transactional
     public void cadastrar(@RequestBody EmpresaDTO dadosEmpresa) {
+        empresaService.validarRequisicao(dadosEmpresa);
+        empresaService.cadastrarEmpresa(dadosEmpresa);
     }
 
 }
