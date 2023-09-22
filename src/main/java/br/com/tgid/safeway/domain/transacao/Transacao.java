@@ -22,6 +22,8 @@ public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
+    private TipoTransacao tipo;
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
