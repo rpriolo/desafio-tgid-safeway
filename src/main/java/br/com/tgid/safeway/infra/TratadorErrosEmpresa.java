@@ -31,4 +31,10 @@ public class TratadorErrosEmpresa {
         return ResponseEntity.badRequest().body(ex);
     }
 
+    @ExceptionHandler(SaldoInsuficienteException.class)
+    public ResponseEntity saldoInsuficiente() {
+        ExceptionDTO ex = new ExceptionDTO("A empresa não tem saldo suficiente para efetivar essa transação", "400");
+        return ResponseEntity.badRequest().body(ex);
+    }
+
 }
