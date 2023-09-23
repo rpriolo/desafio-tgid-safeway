@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 @Table(name = "empresas")
 @Entity(name = "Empresa")
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,4 +24,9 @@ public class Empresa {
         this.saldo = dadosEmpresa.saldo();
         this.taxaAdministracao = dadosEmpresa.taxaAdministracao();
     }
+
+    public void atualizarSaldo(BigDecimal valorTransacionado) {
+        this.saldo = this.saldo.add(valorTransacionado);
+    }
+
 }

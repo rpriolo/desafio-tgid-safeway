@@ -39,6 +39,22 @@ public class TransacaoService {
         }
     }
 
+    public BigDecimal recolherTaxa(TransacaoDTO dadosTransacao) {
+        Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
+        BigDecimal taxaRecolhida = dadosTransacao.valor().multiply(empresa.getTaxaAdministracao());
+        return taxaRecolhida;
+    }
+
+    public void efetivarDeposito(TransacaoDTO dadosTransacao) {
+        validarValor(dadosTransacao);
+
+        Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
+        BigDecimal taxaRecolhida = recolherTaxa(dadosTransacao);
+        BigDecimal valorTransacionado = dadosTransacao.valor().subtract(taxaRecolhida);
+        empresa.atualizarSaldo(valorTransacionado);
+        salvarTransacao(dadosTransacao);
+    }
+
     public void validarSaldoEmpresa(TransacaoDTO dadosTransacao) {
         Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
         BigDecimal taxaRecolhida = dadosTransacao.valor().multiply(empresa.getTaxaAdministracao());
@@ -49,35 +65,22 @@ public class TransacaoService {
         }
     }
 
+    public void efetivarSaque(TransacaoDTO dadosTransacao) {
+        validarValor(dadosTransacao);
+        validarSaldoEmpresa(dadosTransacao);
+
+        Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
+        BigDecimal taxaRecolhida = recolherTaxa(dadosTransacao);
+        BigDecimal valorTransacionado = (dadosTransacao.valor().add(taxaRecolhida)).negate();
+        empresa.atualizarSaldo(valorTransacionado);
+        salvarTransacao(dadosTransacao);
+    }
+
     public void salvarTransacao(TransacaoDTO dadosTransacao) {
         Cliente cliente = clienteRepository.getReferenceById(dadosTransacao.idCliente());
         Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
         Transacao transacao = new Transacao(cliente, empresa, dadosTransacao);
         transacaoRepository.save(transacao);
-    }
-
-    public void efetivarDeposito(TransacaoDTO dadosTransacao) {
-        validarValor(dadosTransacao);
-
-        Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
-        BigDecimal taxaRecolhida = dadosTransacao.valor().multiply(empresa.getTaxaAdministracao());
-        BigDecimal valorRecebidoPelaEmpresa = dadosTransacao.valor().subtract(taxaRecolhida);
-        BigDecimal novoSaldoEmpresa = empresa.getSaldo().add(valorRecebidoPelaEmpresa);
-        empresa.setSaldo(novoSaldoEmpresa);
-        salvarTransacao(dadosTransacao);
-    }
-
-    public void efetivarSaque(TransacaoDTO dadosTransacao) {
-        validarValor(dadosTransacao);
-
-        validarSaldoEmpresa(dadosTransacao);
-
-        Empresa empresa = empresaRepository.getReferenceById(dadosTransacao.idEmpresa());
-        BigDecimal taxaRecolhida = dadosTransacao.valor().multiply(empresa.getTaxaAdministracao());
-        BigDecimal valorSacadoDaEmpresa = dadosTransacao.valor().add(taxaRecolhida);
-        BigDecimal novoSaldoEmpresa = empresa.getSaldo().subtract(valorSacadoDaEmpresa);
-        empresa.setSaldo(novoSaldoEmpresa);
-        salvarTransacao(dadosTransacao);
     }
 
 }
