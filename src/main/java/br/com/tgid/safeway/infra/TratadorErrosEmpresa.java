@@ -13,6 +13,12 @@ public class TratadorErrosEmpresa {
         return ResponseEntity.badRequest().body(ex);
     }
 
+    @ExceptionHandler(EmpresaExistenteException.class)
+    public ResponseEntity empresaExistente() {
+        ExceptionDTO ex = new ExceptionDTO("O CNPJ informado já está cadastrado na base de dados", "400");
+        return ResponseEntity.badRequest().body(ex);
+    }
+
     @ExceptionHandler(CnpjInvalidoException.class)
     public ResponseEntity cnpjInvalido() {
         ExceptionDTO ex = new ExceptionDTO("O CNPJ deve ter 14 dígitos", "400");

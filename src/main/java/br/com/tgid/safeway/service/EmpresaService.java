@@ -2,10 +2,8 @@ package br.com.tgid.safeway.service;
 
 import br.com.tgid.safeway.domain.empresa.Empresa;
 import br.com.tgid.safeway.domain.empresa.EmpresaDTO;
-import br.com.tgid.safeway.exception.CnpjInvalidoException;
-import br.com.tgid.safeway.exception.DadoNaoInformadoEmpresaException;
-import br.com.tgid.safeway.exception.SaldoInvalidoException;
-import br.com.tgid.safeway.exception.TaxaInvalidaException;
+import br.com.tgid.safeway.domain.transacao.TransacaoDTO;
+import br.com.tgid.safeway.exception.*;
 import br.com.tgid.safeway.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +15,6 @@ public class EmpresaService {
 
     @Autowired
     private EmpresaRepository empresaRepository;
-    @Autowired
-    private TransacaoService transacaoService;
 
     public void cadastrarEmpresa(EmpresaDTO dadosEmpresa) {
         Empresa empresa = new Empresa(dadosEmpresa);
@@ -26,6 +22,9 @@ public class EmpresaService {
     }
 
     public void validarRequisicao(EmpresaDTO dadosEmpresa) {
+        if (empresaRepository.existsByCnpj(dadosEmpresa.cnpj())) {
+            throw new EmpresaExistenteException("O CNPJ informado já está cadastrado na base de dados");
+        }
         if (dadosEmpresa.cnpj() == null || dadosEmpresa.saldo() == null || dadosEmpresa.taxaAdministracao() == null) {
             throw new DadoNaoInformadoEmpresaException("É necessário informar CNPJ, saldo e taxa de administração para cadastrar uma empresa");
         }
@@ -39,4 +38,5 @@ public class EmpresaService {
             throw new TaxaInvalidaException("A taxa de administração deve ser maior ou igual a zero");
         }
     }
+
 }
