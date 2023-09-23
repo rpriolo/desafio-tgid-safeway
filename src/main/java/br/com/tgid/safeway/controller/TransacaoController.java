@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-
 @RestController
 @RequestMapping("/transacoes")
 public class TransacaoController {
@@ -40,10 +38,12 @@ public class TransacaoController {
 
         if (dadosTransacao.tipo().equals(TipoTransacao.DEPOSITO)) {
             notificacaoService.enviarCallback(dadosTransacao.tipo(), new DepositoEfetivadoDTO(transacao).valorEfetivado());
+            notificacaoService.enviarEmail(dadosTransacao.tipo(), dadosTransacao.valor());
             return ResponseEntity.status(HttpStatus.CREATED).body(new DepositoEfetivadoDTO(transacao));
         }
         if (dadosTransacao.tipo().equals(TipoTransacao.SAQUE)) {
             notificacaoService.enviarCallback(dadosTransacao.tipo(), new SaqueEfetivadoDTO(transacao).valorEfetivado());
+            notificacaoService.enviarEmail(dadosTransacao.tipo(), dadosTransacao.valor());
             return ResponseEntity.status(HttpStatus.CREATED).body(new SaqueEfetivadoDTO(transacao));
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
