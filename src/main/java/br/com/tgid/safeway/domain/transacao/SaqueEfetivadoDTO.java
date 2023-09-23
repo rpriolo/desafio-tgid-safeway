@@ -18,7 +18,7 @@ public record SaqueEfetivadoDTO(TipoTransacao tipo,
                 transacao.getEmpresa().getId(),
                 transacao.getValor(),
                 transacao.getValor().multiply(transacao.getEmpresa().getTaxaAdministracao()),
-                transacao.getValor().subtract(transacao.getValor().multiply(transacao.getEmpresa().getTaxaAdministracao())),
+                transacao.getValor().add(transacao.getValor().multiply(transacao.getEmpresa().getTaxaAdministracao())),
                 transacao.getDataHora()
         );
     }
