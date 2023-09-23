@@ -1,0 +1,10 @@
+br.com.tgid.safeway
+br.com.tgid.safeway.controller
+br.com.tgid.safeway.domain.cliente
+br.com.tgid.safeway.domain.empresa
+br.com.tgid.safeway.domain.notificacao
+br.com.tgid.safeway.domain.transacao
+br.com.tgid.safeway.exception
+br.com.tgid.safeway.infra
+br.com.tgid.safeway.repository
+br.com.tgid.safeway.service
