@@ -1,6 +1,6 @@
 package br.com.tgid.safeway.infra;
 
-import br.com.tgid.safeway.exception.*;
+import br.com.tgid.safeway.exception.ExceptionDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

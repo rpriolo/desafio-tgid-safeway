@@ -2,7 +2,6 @@ package br.com.tgid.safeway.service;
 
 import br.com.tgid.safeway.domain.empresa.Empresa;
 import br.com.tgid.safeway.domain.empresa.EmpresaDTO;
-import br.com.tgid.safeway.domain.transacao.TransacaoDTO;
 import br.com.tgid.safeway.exception.*;
 import br.com.tgid.safeway.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

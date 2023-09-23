@@ -6,7 +6,6 @@ import br.com.tgid.safeway.domain.transacao.TransacaoDTO;
 import br.com.tgid.safeway.exception.ClienteExistenteException;
 import br.com.tgid.safeway.exception.CpfInvalidoException;
 import br.com.tgid.safeway.exception.DadoNaoInformadoClienteException;
-import br.com.tgid.safeway.exception.EmpresaExistenteException;
 import br.com.tgid.safeway.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

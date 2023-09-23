@@ -1,8 +1,6 @@
 package br.com.tgid.safeway.domain.transacao;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 
 public record DepositoEfetivadoDTO(TipoTransacao tipo,
