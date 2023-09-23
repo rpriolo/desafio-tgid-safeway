@@ -19,18 +19,36 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Transacao {
+    /**
+     * O ID é único e gerado automaticamente pelo banco de dados.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    /**
+     * O tipo da transação realizada, podendo ser depósito ou saque.
+     */
     @Enumerated(EnumType.STRING)
     private TipoTransacao tipo;
+    /**
+     * O solicitante da transação.
+     */
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+    /**
+     * A responsável por receber do e/ou pagar o solicitante da transação.
+     */
     @ManyToOne
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
+    /**
+     * O montante em reais (R$) transacionado entre as partes.
+     */
     private BigDecimal valor;
+    /**
+     * A data (AAAA-MM-DD) e hora (HH:MM:SS) em que a transação ocorreu.
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataHora;
 
