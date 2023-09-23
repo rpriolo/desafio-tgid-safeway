@@ -9,17 +9,31 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+
+/**
+ * Classe responsável por processar as lógicas de negócio a partir dos dados recebidos no controller de empresas.
+ */
 @Service
 public class EmpresaService {
 
     @Autowired
     private EmpresaRepository empresaRepository;
 
+    /**
+     * Recebe as informações da requisição HTTP e cadastra uma empresa no banco de dados.
+     *
+     * @param dadosEmpresa O conjunto de dados que descrevem e compõem uma empresa.
+     */
     public void cadastrarEmpresa(EmpresaDTO dadosEmpresa) {
         Empresa empresa = new Empresa(dadosEmpresa);
         empresaRepository.save(empresa);
     }
 
+    /**
+     * Recebe as informações da requisição HTTP e faz as validações necessárias para o cadastro de empresas.
+     *
+     * @param dadosEmpresa O conjunto de dados que descrevem e compõem uma empresa.
+     */
     public void validarRequisicao(EmpresaDTO dadosEmpresa) {
         if (empresaRepository.existsByCnpj(dadosEmpresa.cnpj())) {
             throw new EmpresaExistenteException("O CNPJ informado já está cadastrado na base de dados");

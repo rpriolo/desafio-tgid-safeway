@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Classe responsável por gerenciar as requisições da API referentes às transações.
+ */
 @RestController
 @RequestMapping("/transacoes")
 public class TransacaoController {
@@ -27,6 +30,13 @@ public class TransacaoController {
     @Autowired
     private NotificacaoService notificacaoService;
 
+    /**
+     * Valida e realiza uma transação a partir dos dados fornecidos. Caso seja realizada
+     * com sucesso, envia uma notificação à empresa e um e-mail ao cliente.
+     *
+     * @param dadosTransacao O conjunto de dados que descrevem e compõem a transação.
+     * @return Retorna um código de status HTTP e uma resposta com os dados da transação efetuada.
+     */
     @PostMapping
     @Transactional
     public ResponseEntity realizarTransacao(@RequestBody TransacaoDTO dadosTransacao) {

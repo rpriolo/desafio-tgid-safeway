@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Classe responsável por gerenciar as requisições da API referentes às empresas.
+ */
 @RestController
 @RequestMapping("/empresas")
 public class EmpresaController {
@@ -18,6 +21,12 @@ public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
 
+    /**
+     * Valida e realiza o cadastro de uma empresa a partir dos dados fornecidos.
+     *
+     * @param dadosEmpresa O conjunto de dados que descrevem e compõem uma empresa.
+     * @return Retorna um código de status HTTP e uma resposta com os dados do cadastro realizado.
+     */
     @PostMapping
     @Transactional
     public ResponseEntity<EmpresaDTO> cadastrar(@RequestBody EmpresaDTO dadosEmpresa) {

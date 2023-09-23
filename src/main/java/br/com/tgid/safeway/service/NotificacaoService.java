@@ -12,6 +12,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 
+/**
+ * Classe responsável por processar e enviar as comunicações sobre transações às empresas e clientes.
+ */
 @Service
 public class NotificacaoService {
 
@@ -20,6 +23,12 @@ public class NotificacaoService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    /**
+     * Envia uma notificação à empresa quando uma transação é realizada.
+     *
+     * @param tipo  O tipo da transação realizada, podendo ser depósito ou saque.
+     * @param valor O montante em reais (R$) transacionado entre as partes.
+     */
     public void enviarCallback(TipoTransacao tipo, BigDecimal valor) {
         String url = "https://webhook.site/9a5db045-1272-40d5-8e1b-83632b5992eb";
         NotificacaoDTO notificacao = new NotificacaoDTO("Uma transação foi efetivada em sua conta", tipo, valor);
@@ -31,6 +40,12 @@ public class NotificacaoService {
         }
     }
 
+    /**
+     * Envia um e-mail ao cliente quando uma transação é realizada.
+     *
+     * @param tipo  O tipo da transação realizada, podendo ser depósito ou saque.
+     * @param valor O montante em reais (R$) transacionado entre as partes.
+     */
     public void enviarEmail(TipoTransacao tipo, BigDecimal valor) {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo("9a5db045-1272-40d5-8e1b-83632b5992eb@email.webhook.site");
